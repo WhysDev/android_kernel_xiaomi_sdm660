@@ -130,12 +130,22 @@ int aarch32_setup_vectors_page(struct linux_binprm *bprm, int uses_interp)
 	unsigned long addr;
 	void *ret;
 
-	down_write(&mm->mmap_sem);
+	if (down_write_killable(&mm->mmap_sem))
+		return -EINTR;
 	addr = get_unmapped_area(NULL, 0, PAGE_SIZE, 0, 0);
 	if (IS_ERR_VALUE(addr)) {
 		ret = ERR_PTR(addr);
 		goto out;
 	}
+
+	ret = _install_special_mapping(mm, addr, PAGE_SIZE,
+				       VM_READ|VM_EXEC|
+				       VM_MAYREAD|VM_MAYWRITE|VM_MAYEXEC,
+				       &compat_vdso_spec[0]);
+	if (IS_ERR(ret))
+		goto out;
+
+	current->mm->context.vdso = (void *)addr;
 
 	ret = _install_special_mapping(mm, addr, PAGE_SIZE,
 				       VM_READ|VM_EXEC|
@@ -280,6 +290,9 @@ int aarch32_setup_vectors_page(struct linux_binprm *bprm, int uses_interp)
 	struct mm_struct *mm = current->mm;
 	void *ret;
 
+	if (down_write_killable(&mm->mmap_sem))
+		return -EINTR;
+
 	down_write(&mm->mmap_sem);
 
 	ret = ERR_PTR(vdso_setup(mm, &vdso32_mappings));
@@ -305,7 +318,9 @@ int arch_setup_additional_pages(struct linux_binprm *bprm, int uses_interp)
 	struct mm_struct *mm = current->mm;
 	int ret;
 
-	down_write(&mm->mmap_sem);
+	if (down_write_killable(&mm->mmap_sem))
+		return -EINTR;
+
 	ret = vdso_setup(mm, &vdso_mappings);
 	up_write(&mm->mmap_sem);
 	return ret;
