@@ -2019,7 +2019,12 @@ static int __set_cpus_allowed_ptr(struct task_struct *p,
 
 	new_mask = get_adjusted_cpumask(p, new_mask);
 
-	rq = task_rq_lock(p, &rf);
+	/* Force all trivial, unbound kthreads onto the little cluster */
+	if (p->flags & PF_KTHREAD && p->pid != 1 &&
+		cpumask_equal(new_mask, cpu_all_mask))
+		new_mask = cpu_lp_mask;
+
+	rq = task_rq_lock(p, &rf;
 
 	/*
 	 * Must re-check here, to close a race against __kthread_bind(),
