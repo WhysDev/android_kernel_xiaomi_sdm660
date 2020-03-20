@@ -1463,11 +1463,10 @@ int32_t msm_sensor_driver_probe(void *setting,
 #ifdef CONFIG_MACH_XIAOMI_SDM660
 		slave_info->vendor_id_info = slave_info32->vendor_id_info;
 		slave_info->vcm_id_info = slave_info32->vcm_id_info;
+#ifdef CONFIG_MACH_XIAOMI_NEW_CAMERA
+	        slave_info->lens_id_info = slave_info32->lens_id_info;
 #endif
-#ifdef CONFIG_MACH_XIAOMI_LAVENDER
-		slave_info->lens_id_info = slave_info32->lens_id_info;
 #endif
-
 		slave_info->slave_addr = slave_info32->slave_addr;
 		slave_info->power_setting_array.size =
 			slave_info32->power_setting_array.size;
@@ -1770,9 +1769,9 @@ CSID_TG:
 #ifdef CONFIG_MACH_XIAOMI_SDM660
 	s_ctrl->sensordata->vendor_id_info = &(slave_info->vendor_id_info);
 	s_ctrl->sensordata->vcm_id_info = &(slave_info->vcm_id_info);
-#endif
-#ifdef CONFIG_MACH_XIAOMI_LAVENDER
+#ifdef CONFIG_MACH_XIAOMI_NEW_CAMERA
 	s_ctrl->sensordata->lens_id_info = &(slave_info->lens_id_info);
+#endif
 #endif
 	/*
 	 * Update eeporm subdevice Id by input eeprom name
