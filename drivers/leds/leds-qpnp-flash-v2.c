@@ -2409,6 +2409,8 @@ static int qpnp_flash_led_probe(struct platform_device *pdev)
 	if (!led)
 		return -ENOMEM;
 
+	kmemleak_not_leak(led);
+
 	led->regmap = dev_get_regmap(pdev->dev.parent, NULL);
 	if (!led->regmap) {
 		pr_err("Couldn't get parent's regmap\n");
