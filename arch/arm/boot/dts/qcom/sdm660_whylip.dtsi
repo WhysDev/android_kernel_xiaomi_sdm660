@@ -57,7 +57,6 @@
 			qcom,ea = <&ea0>;
 			efficiency = <618>;
 			capacity-dmips-mhz = <618>;
-			sched-energy-costs = <&CPU_COST_0 &CLUSTER_COST_0>;
 			next-level-cache = <&L2_0>;
 			L2_0: l2-cache {
 				compatible = "arm,arch-cache";
@@ -89,7 +88,6 @@
 			qcom,ea = <&ea1>;
 			efficiency = <618>;
 			capacity-dmips-mhz = <618>;
-			sched-energy-costs = <&CPU_COST_0 &CLUSTER_COST_0>;
 			next-level-cache = <&L2_0>;
 			L1_I_1: l1-icache {
 				compatible = "arm,arch-cache";
@@ -115,7 +113,6 @@
 			qcom,ea = <&ea2>;
 			efficiency = <618>;
 			capacity-dmips-mhz = <618>;
-			sched-energy-costs = <&CPU_COST_0 &CLUSTER_COST_0>;
 			next-level-cache = <&L2_0>;
 			L1_I_2: l1-icache {
 				compatible = "arm,arch-cache";
@@ -141,7 +138,6 @@
 			qcom,ea = <&ea3>;
 			efficiency = <618>;
 			capacity-dmips-mhz = <618>;
-			sched-energy-costs = <&CPU_COST_0 &CLUSTER_COST_0>;
 			next-level-cache = <&L2_0>;
 			L1_I_3: l1-icache {
 				compatible = "arm,arch-cache";
