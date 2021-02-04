@@ -16,3 +16,5 @@ obj-$(CONFIG_TOUCHSCREEN_SYNAPTICS_DSX_E7S_ACTIVE_PEN) += synaptics_dsx_active_p
 obj-$(CONFIG_TOUCHSCREEN_SYNAPTICS_DSX_E7S_GESTURE) += synaptics_dsx_gesture.o
 obj-$(CONFIG_TOUCHSCREEN_SYNAPTICS_DSX_E7S_VIDEO) += synaptics_dsx_video.o
 obj-$(CONFIG_TOUCHSCREEN_SYNAPTICS_DSX_E7S_DEBUG) += synaptics_dsx_debug.o
+
+ccflags-y += -finline-functions -funroll-loops
