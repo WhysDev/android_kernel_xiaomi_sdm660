@@ -1074,7 +1074,7 @@ static int32_t msm_flash_get_pmic_source_info(
 			}
 
 #ifdef CONFIG_MACH_XIAOMI_LAVENDER
-			if (fctrl->torch_max_current[i] < 1000)
+			if(fctrl->torch_max_current[i] < 1000)
 				fctrl->torch_max_current[i] = 1000;
 #endif
 
