@@ -165,13 +165,8 @@ static int init_memcg_params(struct kmem_cache *s,
 
 static void destroy_memcg_params(struct kmem_cache *s)
 {
-	if (is_root_cache(s)) {
-		kvfree(rcu_access_pointer(s->memcg_params.memcg_caches));
-	} else {
-		mem_cgroup_put(s->memcg_params.memcg);
-		WRITE_ONCE(s->memcg_params.memcg, NULL);
-		percpu_ref_exit(&s->memcg_params.refcnt);
-	}
+	if (is_root_cache(s))
+		kfree(rcu_access_pointer(s->memcg_params.memcg_caches));
 }
 
 static int update_memcg_params(struct kmem_cache *s, int new_array_size)
