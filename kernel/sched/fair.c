@@ -6524,8 +6524,8 @@ boosted_task_util(struct task_struct *p)
 {
 #ifdef CONFIG_UCLAMP_TASK_GROUP
 	unsigned long util = task_util(p);
-	unsigned long util_min = uclamp_eff_value(task, UCLAMP_MIN);
-	unsigned long util_max = uclamp_eff_value(task, UCLAMP_MAX);
+	unsigned long util_min = uclamp_eff_value(p, UCLAMP_MIN);
+	unsigned long util_max = uclamp_eff_value(p, UCLAMP_MAX);
 
 	return clamp(util, util_min, util_max);
 #else
