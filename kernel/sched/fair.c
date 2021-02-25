@@ -6532,10 +6532,7 @@ boosted_task_util(struct task_struct *p)
 	unsigned long util = task_util_est(p);
 	long margin;
 
-	if (sched_feat(SCHEDTUNE_BOOST_UTIL))
-		margin = 0;
-	else
-		margin = min((long)0, schedtune_task_margin(p));
+	margin = min((long)0, schedtune_task_margin(p));
 
 	trace_sched_boost_task(p, util, margin);
 
