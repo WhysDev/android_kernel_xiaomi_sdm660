@@ -6530,7 +6530,7 @@ boosted_task_util(struct task_struct *p)
 
 	return clamp(util, util_min, util_max);
 #else
-	unsigned long util = task_util_est(task);
+	unsigned long util = task_util_est(p);
 	long margin;
 
 	if (sched_feat(SCHEDTUNE_BOOST_UTIL))
