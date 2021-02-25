@@ -1084,6 +1084,7 @@ static ssize_t oom_adj_write(struct file *file, const char __user *buf,
 	struct task_struct *task;
 	char buffer[PROC_NUMBUF];
 	int oom_adj;
+	unsigned long flags;
 	int err;
 
 	memset(buffer, 0, sizeof(buffer));
@@ -1159,8 +1160,8 @@ static ssize_t oom_score_adj_read(struct file *file, char __user *buf,
 	struct task_struct *task = get_proc_task(file_inode(file));
 	char buffer[PROC_NUMBUF];
 	short oom_score_adj = OOM_SCORE_ADJ_MIN;
-	size_t len;
 	unsigned long flags;
+	size_t len;
 
 	if (!task)
 		return -ESRCH;
@@ -1178,6 +1179,7 @@ static ssize_t oom_score_adj_write(struct file *file, const char __user *buf,
 {
 	struct task_struct *task;
 	char buffer[PROC_NUMBUF];
+	unsigned long flags;
 	int oom_score_adj;
 	int err;
 
