@@ -1152,7 +1152,7 @@ static int __set_oom_adj(struct file *file, int oom_adj, bool legacy)
 				continue;
 
 			task_lock(p);
-			if (!p->vfork_done && process_shares_mm(p, mm)) {
+			if (!p->vfork_done) {
 				pr_info("updating oom_score_adj for %d (%s) from %d to %d because it shares mm with %d (%s). Report if this is unexpected.\n",
 						task_pid_nr(p), p->comm,
 						p->signal->oom_score_adj, oom_adj,
