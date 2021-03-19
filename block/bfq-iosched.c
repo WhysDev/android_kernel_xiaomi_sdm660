@@ -4100,7 +4100,7 @@ static void bfq_init_bfqq(struct bfq_data *bfqd, struct bfq_queue *bfqq,
 	 * Set to the value for which bfqq will not be deemed as
 	 * soft rt when it becomes backlogged.
 	 */
-	bfqq->soft_rt_next_start = jiffies();
+	bfqq->soft_rt_next_start = jiffies;
 
 	/* first request is almost certainly seeky */
 	bfqq->seek_history = 1;
@@ -4292,7 +4292,7 @@ static void bfq_rq_enqueued(struct bfq_data *bfqd, struct bfq_queue *bfqq,
 		 * merged to this one quickly, then the device will be
 		 * unplugged and larger requests will be dispatched.
 		 */
-		if (small_req && idling_boosts_thr_without_issues(bfqd, bfqq) &&
+		if (small_req && bfq_bfqq_may_idle(bfqq) &&
 		    !budget_timeout)
 			return;
 
